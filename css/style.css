@@ -1,0 +1,58 @@
+body {
+    font-family: 'Roboto';
+}
+
+input[type="submit"], input[type="email"], input[type="number"], textarea, .woocommerce-input-wrapper {
+	width:100%!important;
+}
+body, input,textarea, option, #select {
+	font-size: 14px !important;
+}
+input[type="date"] {
+    padding: auto !important;
+}
+#select {
+    padding: 5px !important;
+    height:35px !important;
+    font-size: 14px !important;
+}
+.entry-content, .entry-header {
+    width: 80%;
+    margin:0px auto !important;
+}
+.entry-header {
+    padding: 20px;
+    background-color: #fff;
+    border-top:1px solid #efefef;
+    border-bottom:1px solid #efefef;
+}
+.custom-logo {
+	width:80px;
+	margin:0px!important;
+	padding:0px !important;
+}
+.header-wrap-2 {
+	margin:0px!important;
+	padding:0px !important;
+}
+.main-form, .top-links {
+    margin:25px 0px 0px 0px !important;
+}
+ol.breadcrumb, .white {
+    background-color:white;
+}
+
+
+
+/* End Breadcrumb */
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    /* .breadcrumb {
+        font-size:10px;
+    }
+    .entry-content, .entry-header {
+        width: 100%;
+        margin:0px auto !important;
+    } */
+  }
