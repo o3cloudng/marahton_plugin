@@ -4,8 +4,8 @@
         <div class="container">
         <div class="col-md-12">
             <ul class="breadcrumb">
-                <li class="active"><a href="javascript:void(0);">Sign up</a></li>
-                <li class=""><a href="javascript:void(0);">Basic Info</a></li>
+                <li class="active"><a href="javascript:void(0);">Basci Info</a></li>
+                <!-- <li class=""><a href="javascript:void(0);">Basic Info</a></li> -->
                 <li><a href="javascript:void(0);">Payment</a></li>
                 <li><a href="javascript:void(0);">EBIB</a></li>
             </ul>
