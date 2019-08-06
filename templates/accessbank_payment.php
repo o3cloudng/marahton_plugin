@@ -2,7 +2,7 @@
 <div class="container">
     <div class="container white">
         <ul class="breadcrumb">
-            <li class="completed"><a href="javascript:void(0);">Sign up</a></li>
+            <!-- <li class="completed"><a href="javascript:void(0);">Sign up</a></li> -->
             <li class="completed"><a href="javascript:void(0);">Basic Information</a></li>
             <li class="active"><a href="javascript:void(0);">Payment</a></li>
             <li><a href="javascript:void(0);">EBIB</a></li>

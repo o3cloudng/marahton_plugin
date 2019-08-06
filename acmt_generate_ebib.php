@@ -1,5 +1,5 @@
 <?php
-function regenerate_ebib()
+function generate_ebib()
 {
     $current_user = wp_get_current_user();
     $bio = "acmt_bio";
@@ -26,10 +26,10 @@ function regenerate_ebib()
         $host =  $_SERVER['HTTP_HOST'];
         if ($host == "localhost") {
         // Local machine url
-            $url = 'http://5.101.138.142:8980/api/barcode/resend';
+            $url = 'http://5.101.138.142:8980/api/barcode/single';
         } else {
         // Live Server url
-            $url = 'http://192.168.1.142:8980/api/barcode/resend';        
+            $url = 'http://192.168.1.142:8980/api/barcode/single';        
         }
 
         
@@ -55,14 +55,14 @@ function regenerate_ebib()
 
         if ($err) {
             echo "cURL Error #:" . $err;
-            wp_redirect(site_url('re-generate-ebib/?status=Failed'));
+            wp_redirect(site_url('generate-ebib/?status=Failed'));
             exit;
         } else {
             ob_clean();
             header('Content-type: application/json');
             $resp = json_decode($response);
 
-            wp_redirect(site_url('re-generate-ebib/?status=Success'));
+            wp_redirect(site_url('generate-ebib/?status=Success'));
             exit;
 
         }
@@ -71,7 +71,7 @@ function regenerate_ebib()
 
 ?>
 
-<h2 class="text-center">Re-Generate EBIB for registered user</h2>
+<h2 class="text-center">Generate EBIB for new users</h2>
 <p>&nbsp;</p>
 
 <div id="main">
@@ -81,12 +81,12 @@ function regenerate_ebib()
                 <?php
                     if(isset($_REQUEST['status']) && ($_REQUEST['status'] == 'Success')){ ?>
                         <div class="alert alert-success">
-                            EBIB has been re-generated for the user <b><?php echo $email; ?></b>
+                            EBIB has been generated for the user <b><?php echo $email; ?></b>
                         </div>
                 <?php } 
                     if(isset($_REQUEST['status']) && ($_REQUEST['status'] == 'Failed')){ ?>
                         <div class="alert alert-danger">
-                            EBIB re-generation failed, try again later.
+                            EBIB generation failed, try again later.
                         </div>
                 <?php }
                 ?>
@@ -120,7 +120,7 @@ function regenerate_ebib()
             <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
                 <div class="form-group">
                     <!-- <a href="<?php echo site_url(); ?>/e-bib?se=1&race=<?php echo $race; ?>" class="btn btn-primary btn-large btn-block" target="_blank"> Generate your BIB</a> -->
-                    <button type="submit" class="btn btn-primary btn-large btn-block w-100" style="padding: 20px 10px; font-size: 18px;" name="regenerate" >Re-Generate Ebib</button> 
+                    <button type="submit" class="btn btn-primary btn-large btn-block w-100" style="padding: 20px 10px; font-size: 18px;" name="regenerate" >Generate Ebib</button> 
                 </div>
             </div>
 
@@ -165,6 +165,6 @@ function regenerate_ebib()
 
 }
 // Callback url - http://localhost/access-marathon/payment-receipt/ 
-add_shortcode('regenerate_ebib', 'regenerate_ebib');
+add_shortcode('generate_ebib', 'generate_ebib');
 
 ?>

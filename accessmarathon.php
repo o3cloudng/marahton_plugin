@@ -235,6 +235,8 @@ include('acmt_no_payment_receipt.php');
 include('acmt_get_ebib_wheelchair.php');
 
 include('acmt_regenerate_ebib.php');
+
+include('acmt_generate_ebib.php');
 // include('woocommerce/my-account.php');
 // include('acmt_payment_receipt.php');
 
