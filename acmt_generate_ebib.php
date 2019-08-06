@@ -6,7 +6,7 @@ function generate_ebib()
 
     $tranx = json_decode( json_encode($tranx), true);
 
-    if (isset($_POST['regenerate'])) {
+    if (isset($_POST['generate'])) {
         $email = $_POST['email'];
         $race = $_POST['race'];
         // $isRequestEmail = isset($_GET['se']) ? 1 : 0;
@@ -120,7 +120,7 @@ function generate_ebib()
             <div class="col-sm-10 offset-sm-1 col-md-6 offset-md-3">
                 <div class="form-group">
                     <!-- <a href="<?php echo site_url(); ?>/e-bib?se=1&race=<?php echo $race; ?>" class="btn btn-primary btn-large btn-block" target="_blank"> Generate your BIB</a> -->
-                    <button type="submit" class="btn btn-primary btn-large btn-block w-100" style="padding: 20px 10px; font-size: 18px;" name="regenerate" >Generate Ebib</button> 
+                    <button type="submit" class="btn btn-primary btn-large btn-block w-100" style="padding: 20px 10px; font-size: 18px;" name="generate" >Generate Ebib</button> 
                 </div>
             </div>
 
