@@ -656,15 +656,21 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="form-group" style="width: 90%; z-index:10;">
-                            <label>Phone Number</label><br />
-                            <input type="tel" id="phone" class="form-control" name="phone" value="+234" placeholder="+234">
+                        <label>Phone Number</label><br />
+                        <div class="input-group" style="width: 90%; z-index:10;">
+                            <div class="input-group-addon" style="padding-right:25px;">
+                                <span class="glyphicon glyphicon-phone"></span>
+                            </div>
+                            <input type="text" class="form-control" name="phone" value="+234" placeholder="+234">
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                            <label>In case of emergency number</label>
-                            <input id="contact" type="tel" class="form-control" name="contact_person" value="+234"
+                        <label>In case of emergency number</label>
+                        <div class="input-group">
+                            <div class="input-group-addon" style="padding-right:25px;">
+                                    <span class="glyphicon glyphicon-phone"></span>
+                                </div>
+                            <input type="text" class="form-control" name="contact_person" value="+234"
                                 placeholder="+234">
                         </div>
                     </div>

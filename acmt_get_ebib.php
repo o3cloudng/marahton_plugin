@@ -91,11 +91,6 @@ function acmt_get_ebib()
         // Live Server url
             $url = 'http://192.168.1.142:8980/api/barcode/single';        
         }
-        // Local machine url
-        // $url = 'http://5.101.138.142:8980/api/barcode/single';
-
-        // Live Server url
-        // $url = 'http://192.168.1.142:8980/api/barcode/single';
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => $url,
