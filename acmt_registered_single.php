@@ -8,6 +8,7 @@ function acmt_registered_single_shortcode()
        wp_redirect(site_url('/'));
     }
     ?>
+    <div class="row table-responsive">
     <h1>Single users</h1>
     <table id="myTable" class="table table-bordered table-striped table-hover text-small">
      <thead>
@@ -68,6 +69,7 @@ function acmt_registered_single_shortcode()
         } ?>
             </tbody>
          </table>
+        </div>
         <?php
     }
      

@@ -1,53 +1,70 @@
+<?php
+function get_client_ip() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']))
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_X_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        else if(isset($_SERVER['HTTP_FORWARDED']))
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        else if(isset($_SERVER['REMOTE_ADDR']))
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        else
+            $ipaddress = 'UNKNOWN';
+        return $ipaddress;
+    }
+
+// $IPaddress = get_client_ip();
+// function ip_details($IPaddress) 
+// {
+//     $json       = file_get_contents("http://ipinfo.io/{$IPaddress}");
+//     $details    = json_decode($json);
+//     return $details;
+// }
+
+// $details    =   ip_details("$IPaddress");
+
+//  echo $details->country; 
+?>
 <!-- <h2>Registration Form</h2> -->
 <div class="container">
-    <div class="container white">
-        <ul class="breadcrumb">
+    <div class="row white d-flex justify-content-center">
+        <div class="col-md-8 col-sm-12">
+          <ul class="breadcrumb">
             <!-- <li class="completed"><a href="javascript:void(0);">Sign up</a></li> -->
-            <li class="completed"><a href="javascript:void(0);">Basic Information</a></li>
+            <li class="completed"><a href="javascript:void(0);">Basic Info</a></li>
             <li class="active"><a href="javascript:void(0);">Payment</a></li>
             <li><a href="javascript:void(0);">EBIB</a></li>
         </ul>
+        </div>
     </div>
     <div class="col-md-8 offset-md-2">
         <h2>Individuals (Elites & Individual Fun Runners)</h2>
         <p><strong>Note: 10km race is only for Fun Runners.<br/>
         Any athlete registered under an athletics federation or body either home or abroad is not eligible to run in the 10km race.</strong></p>
         <p>Complete your registration by making payment</p>
-                <form method="post" action="">
-                    <!-- <div class="form-group">
-                                <div class=" my-4">
-                                    <label>Select race</label>
-                                    <select id="select" name="race" class="custom-select custom-select-lg">
-                                        <option value="42">42km</option>
-                                        <option value="10">10km</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                            <div class="form-group" id="local">
-                                <label>Amount</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon" style="padding-right:25px;">
-                                        <span class="glyphicon glyphicon-credit-card"></span>
-                                    </div>
-                                    <input type="text" id="amount_value" disabled value="5000" class="form-control" />
-                                    <input type="hidden" id="amount" name="amount_value" value="500000">
-                                    <input type="hidden" id="currency" value="NGN">
-                                </div>
-                            </div>
-                    <div class="form-group">
-                        <input type="button" onclick="payWithPaystack()" class="btn btn-primary btn-block" value="Complete Payment" />
-                    </div>
-                    </form>
-
-                    <div class="form-group">
-                       <!--   <a class="flwpug_getpaid" data-PBFPubKey="FLWPUBK-74b3a24f28483ada07cb3172425f45a5-X" data-txref="rave-dash-1556535387" data-amount="100" data-customer_email="o3cloudng@gmail.com"></a>
-
-<script type="text/javascript" src="https://api.ravepay.co/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script>  -->
-                    </div>
-                    <!-- <div class="form-group">
-                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" class="align-center" alt="">
-                    </div> -->
+        <form method="post" action="">
+          <div class="form-group" id="local">
+              <label>Amount</label>
+              <div class="input-group">
+                <div class="input-group-addon" style="padding-right:25px;">
+                    <span class="glyphicon glyphicon-credit-card"></span>
                 </div>
+                  <input type="text" id="amount_value" disabled value="NGN 5,000" class="form-control" />
+                  <input type="hidden" id="amount" name="amount_value" value="500000">
+                  <input type="hidden" id="currency" value="NGN">
+                </div>
+          </div>
+          <div class="form-group">
+              <input type="button" onclick="payWithPaystack()" class="btn btn-primary btn-block" value="Complete Payment" />
+          </div>
+        </form>
+        <p>&nbsp;</p>
+      </div>
 
 
 
@@ -89,10 +106,6 @@ $tranx_bio = get_user_meta($user_id, $bio);
 $phone = $tranx_bio[0]['phone'];
 $race = $tranx_bio[0]['race'];
 
-// print_r($tranx_bio[0]['phone']);
-
-
-
 ?>
 
 <!-- <script type="text/javascript" src="https://ravesandboxapi.flutterwave.com/flwv3-pug/getpaidx/api/flwpbf-inline.js"></script> -->
@@ -111,6 +124,9 @@ var reference = "<?php echo $reference; ?>";
 const local = document.getElementById('local');
 const international = document.getElementById('international');
 
+
+document.getElementById("local").hide;
+
 fetch('http://ip-api.com/json')
   .then(function(response) {
     return response.json();
@@ -118,6 +134,7 @@ fetch('http://ip-api.com/json')
   .then(function(loc) {
     const location = JSON.stringify(loc.country);
     if (location == '"Nigeria"') { 
+        // alert(location);
         document.getElementById("amount_value").value = "NGN 5,000"; 
     } else {    
         // console.log('Foreign');
@@ -127,10 +144,6 @@ fetch('http://ip-api.com/json')
   }
 });
 </script>
-<form >
-  <!-- <script src="https://js.paystack.co/v1/inline.js"></script>
-  <button type="button" onclick="payWithPaystack()"> Pay </button>  -->
-</form>
  
 <script>
   function payWithPaystack(){
@@ -148,7 +161,7 @@ fetch('http://ip-api.com/json')
       key: 'pk_live_5a6d45e58e9531219c878f98b0253c9230f569c6',
       email: email,
       amount: amount,
-      currency: "NGN",
+      currency: currency,
       ref: reference,
       // ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       firstname: firstname,

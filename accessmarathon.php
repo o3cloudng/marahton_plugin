@@ -30,12 +30,7 @@ function ebibUrl(){
         // Live
         $url = "http://192.168.1.142:8980/api/barcode/";
         return $url;
-    }
-    // Live
-    // $url = "http://192.168.1.142:8980/api/barcode/";
-    // Test
-    // $url = "http://5.101.138.142:8980/api/barcode/";
-    // return $url;    
+    }   
 }
 
 // echo ebibUrl();
@@ -92,7 +87,7 @@ function checkEbibPayment($userID) {
 }
 
 function checkPaidUser($user_id) {
-    $bio = "acmt_bio";
+    $bio = "acmt_tx";
     $data = get_user_meta($user_id, $bio);
     return $data;
 }

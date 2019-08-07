@@ -70,6 +70,8 @@ function acmt_profile_shortcode()
           </div>
         </div>
       <?php }  
+
+      // print_r(checkPaidUser($user->ID));
       if(!checkPaidUser($user->ID)) { ?>
         
         <div class="container">
