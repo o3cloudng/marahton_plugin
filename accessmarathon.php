@@ -24,11 +24,13 @@ function ebibUrl(){
     $host =  $_SERVER['HTTP_HOST'];
     if ($host == "localhost") {
         // Local
-        $url = "http://5.101.138.142:8980/api/barcode/";
+        // $url = "http://5.101.138.142:8980/api/barcode/";
+        $url = "http://94.229.74.69/api/barcode/single";
         return $url;
     } else {
         // Live
         $url = "http://192.168.1.142:8980/api/barcode/";
+        $url = "http://127.0.0.1/api/barcode/";
         return $url;
     }   
 }

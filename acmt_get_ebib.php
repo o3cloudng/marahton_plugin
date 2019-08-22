@@ -86,10 +86,10 @@ function acmt_get_ebib()
         $host =  $_SERVER['HTTP_HOST'];
         if ($host == "localhost") {
         // Local machine url
-            $url = 'http://5.101.138.142:8980/api/barcode/single';
+            $url = 'https://94.229.74.69/api/barcode/single';
         } else {
         // Live Server url
-            $url = 'http://192.168.1.142:8980/api/barcode/single';        
+            $url = 'http://127.0.0.1/api/barcode/single';        
         }
 
         curl_setopt_array($curl, array(

@@ -25,7 +25,8 @@ function acmt_registered_single_shortcode()
     // $email = "o3cloudng@gmail.com";
     // $type = "group";
     // Server from localhost
-    $url = "http://5.101.138.142:8980/api/get/barcode/single/".$email;
+    // $url = "http://5.101.138.142:8980/api/get/barcode/single/".$email;
+    $url = "http://94.229.74.69/api/get/barcode/single/".$email;
 
     // Live Server url
     // $url = "http://192.168.1.142:8980/api/get/barcode/group/".$email."/".$type;
