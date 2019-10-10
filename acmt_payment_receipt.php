@@ -91,13 +91,13 @@ function payment_callback()
         update_user_meta($user_id, "acmt_tx", $transaction);
 
 
+
+
+        // 
+        $bio = get_user_meta($current_user->ID, 'acmt_bio');
+        $country = strtolower($bio[0]['country']);
+
         ?>
-
-
-
-
-
-
 
         
     <div class="container white">
@@ -245,7 +245,7 @@ a.btn {
                     </td>
                     <td colspan="2">
                         <h3>
-                            <?php echo "NGN " . number_format(substr($amount, 0, -2), 2); ?>
+                            <?php echo  "NGN ". number_format(substr($amount, 0, -2), 2); ?>
                         </h3>
                     </td>
                 </tr>

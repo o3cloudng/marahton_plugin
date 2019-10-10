@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="form-group">
-                            <label>Country of Birth</label>
+                            <label>Country of Residence</label>
                             <div class="input-group">
                                 <div class="input-group-addon" style="padding-right:25px;">
                                     <span class="glyphicon glyphicon-globe"></span>

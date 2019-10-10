@@ -1,4 +1,53 @@
 <?php
+ob_start();
+ob_clean();
+
+if(isset($_POST["Export"])){
+    global $wpdb;
+     $sql = "SELECT u1.id, u1.display_name, u1.user_registered, u1.user_email AS user_email, m1.meta_value AS acmt_bio FROM wp_users u1
+        JOIN wp_usermeta m1 ON (m1.user_id = u1.id AND m1.meta_key = 'acmt_bio')
+        WHERE u1.user_login != 'administrator' AND u1.user_login != 'nilayosport' AND u1.user_email != 'info@lagoscitymarathon.com'
+        ORDER BY u1.user_registered DESC";
+
+    $result = $wpdb->get_results($sql);
+
+    $result = json_encode($result);
+    $result = json_decode($result,true);
+
+    $filename = 'download';
+    $date = date("Y-m-d H:i:s");
+    $output = fopen('php://output', 'w');
+    // $result = $wpdb->get_results('SELECT * FROM     tp_users', ARRAY_A);
+    fputcsv( $output, array('Name', ' Email', 'Phone'));
+    foreach ( $result as $key => $value ) {
+        // $phone = unserialize($value['acmt_bio'])['phone'];
+        if(isset(unserialize($value['acmt_bio'])['phone']) & isset($value['acmt_bio'])) {
+                $phone = "+".unserialize($value['acmt_bio'])['phone'];
+                } 
+        $modified_values = array(
+                        $value['display_name'],
+                        $value['user_email'],
+                        $phone
+        );
+        fputcsv( $output, $modified_values );
+    }
+
+    header('Content-Type: text/csv');
+    header('Cache-Control: max-age=0');
+    // If you're serving to IE 9, then the following may be needed
+    header('Cache-Control: max-age=1');
+    // If you're serving to IE over SSL, then the following may be needed
+    header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
+    header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
+    header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
+    header ('Pragma: public'); // HTTP/1.0
+    // header("Content-Type: application/octet-stream");
+    header("Content-Disposition: attachment; filename=\"" . $date . " " . $filename . ".csv\";" );
+    header("Content-Transfer-Encoding: binary");
+
+    fclose($output);
+    exit;
+}
 /**
  * Plugin Name: Access Bank Marathon
  * Description: e-Bib generation for Access Bank Lagos City Marathon.
@@ -25,7 +74,7 @@ function ebibUrl(){
     if ($host == "localhost") {
         // Local
         // $url = "http://5.101.138.142:8980/api/barcode/";
-        $url = "http://94.229.74.69/api/barcode/single";
+        $url = "http://94.229.74.69/api/barcode/";
         return $url;
     } else {
         // Live

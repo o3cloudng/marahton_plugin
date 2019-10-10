@@ -1,34 +1,19 @@
 <?php
-function get_client_ip() {
-        $ipaddress = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
-            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_X_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
-        else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if(isset($_SERVER['HTTP_FORWARDED']))
-            $ipaddress = $_SERVER['HTTP_FORWARDED'];
-        else if(isset($_SERVER['REMOTE_ADDR']))
-            $ipaddress = $_SERVER['REMOTE_ADDR'];
-        else
-            $ipaddress = 'UNKNOWN';
-        return $ipaddress;
-    }
+$user = wp_get_current_user();
+    if(!is_user_logged_in()) {
+        wp_redirect(site_url('my-account'));
+    } 
 
-// $IPaddress = get_client_ip();
-// function ip_details($IPaddress) 
-// {
-//     $json       = file_get_contents("http://ipinfo.io/{$IPaddress}");
-//     $details    = json_decode($json);
-//     return $details;
-// }
+    $bio = get_user_meta($user->ID, 'acmt_bio');
 
-// $details    =   ip_details("$IPaddress");
+  $country = strtolower($bio[0]['country']);
 
-//  echo $details->country; 
+  // if(isset($_GET['location'])){
+  //   $country = $_GET['location'];
+  // } else {
+  //   $country = "";
+  // }
+
 ?>
 <!-- <h2>Registration Form</h2> -->
 <div class="container">
@@ -43,20 +28,53 @@ function get_client_ip() {
         </div>
     </div>
     <div class="col-md-8 offset-md-2">
+        <!-- <form action="" method="get">
+          <div class="row">
+            <div class="container">
+              <div class="form-group">
+              <label>Current location</label> <br/>
+              <select class="form-control" name="location" id="myselect" onchange="this.form.submit()">
+                  <option value="">--Select current location--</option>
+                  <option value="nigeria">Nigeria</option>
+                  <option value="abroad">Abroad</option>
+              </select>
+            </div>
+            </div>
+          </div>
+        </form> -->
         <h2>Individuals (Elites & Individual Fun Runners)</h2>
         <p><strong>Note: 10km race is only for Fun Runners.<br/>
         Any athlete registered under an athletics federation or body either home or abroad is not eligible to run in the 10km race.</strong></p>
         <p>Complete your registration by making payment</p>
         <form method="post" action="">
           <div class="form-group" id="local">
+            <?php echo $_GET['location']; ?>
               <label>Amount</label>
               <div class="input-group">
                 <div class="input-group-addon" style="padding-right:25px;">
                     <span class="glyphicon glyphicon-credit-card"></span>
                 </div>
+
+                <?php if($_GET['location'] == "abroad") { ?>
+                 <!--  <input type="text" id="amount_value" disabled value="USD 100 (NGN 36,000.00)" class="form-control" />
+                  <input type="hidden" id="amount" name="amount_value" value="3600000">
+                  <input type="hidden" id="currency" value="NGN"> -->
+                <?php } else { ?>
+                  <!-- <input type="text" id="amount_value" disabled value="NGN 5,000" class="form-control" />
+                  <input type="hidden" id="amount" name="amount_value" value="500000">
+                  <input type="hidden" id="currency" value="NGN">    -->               
+                <?php } ?>
+
+                <?php if($country == "nigeria") { ?>
                   <input type="text" id="amount_value" disabled value="NGN 5,000" class="form-control" />
                   <input type="hidden" id="amount" name="amount_value" value="500000">
                   <input type="hidden" id="currency" value="NGN">
+                <?php } else { ?>  
+                  <input type="text" id="amount_value" disabled value="USD 100" class="form-control" />
+                  <input type="hidden" id="amount" name="amount_value" value="10000">
+                  <input type="hidden" id="currency" value="USD">                                  
+                <?php } ?>
+
                 </div>
           </div>
           <div class="form-group">
@@ -121,28 +139,7 @@ var race = "<?php echo $race; ?>";
 // var email = "o3cloudng@gmail.com";
 var reference = "<?php echo $reference; ?>";
 // alert(user_email);
-const local = document.getElementById('local');
-const international = document.getElementById('international');
 
-
-document.getElementById("local").hide;
-
-fetch('http://ip-api.com/json')
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(loc) {
-    const location = JSON.stringify(loc.country);
-    if (location == '"Nigeria"') { 
-        // alert(location);
-        document.getElementById("amount_value").value = "NGN 5,000"; 
-    } else {    
-        // console.log('Foreign');
-        document.getElementById("amount").value = 10000; 
-        document.getElementById("amount_value").value = "USD 100";
-        document.getElementById("currency").value = "USD"; 
-  }
-});
 </script>
  
 <script>
@@ -151,11 +148,6 @@ fetch('http://ip-api.com/json')
     const amount = document.getElementById('amount').value;
     const currency = document.getElementById('currency').value;
     const amount_value = document.getElementById('amount_value');
-    // const race = document.getElementById('select').value;
-
-    // alert(name+email+race+amount);
-
-    // alert(race);
 
     var handler = PaystackPop.setup({
       key: 'pk_live_5a6d45e58e9531219c878f98b0253c9230f569c6',
@@ -173,7 +165,8 @@ fetch('http://ip-api.com/json')
                 display_name: firstname+ " "+lastname,
                 variable_name: email,
                 phone: phone,
-                race:race
+                race:race,
+                currency:currency
             }
          ]
       },

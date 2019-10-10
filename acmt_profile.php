@@ -6,9 +6,13 @@ function acmt_profile_shortcode()
     // if( !array_intersect($allowed_roles, $user->roles ) ) {
     //    wp_redirect(site_url('/'));
     // }
+  $user = wp_get_current_user();
+    if(!is_user_logged_in()) {
+        wp_redirect(site_url('my-account'));
+    } 
 
     function getEbibNumber($email) {
-        $url_ebib = 'http://5.101.138.142:8980/api/get/barcode/single/$email';
+        $url_ebib = 'http://5.101.138.142:8980/api/get/barcode/single/'.$email;
         $curl = curl_init();
         curl_setopt_array($curl, array(
         CURLOPT_URL => $url_ebib,
@@ -16,36 +20,28 @@ function acmt_profile_shortcode()
         CURLOPT_HTTPHEADER => [
             "accept: application/json"
         ],       
-    ));
+      ));
 
-    $response = curl_exec($curl);
+      $response = curl_exec($curl);
 
-    if ($err) {
-        // there was an error contacting the Paystack API
-        die('Curl returned error: ' . $err);
+      if ($err) {
+          // there was an error contacting barcode
+          // die('Curl returned error: ' . $err);
+        return "Ebib API server not found. Try again later.";
+      }
+
+      $ebibNumber = json_decode($response);
+
+      // print_r($ebibNumber->message);
+      return $ebibNumber->data->ebib;
     }
-
-    $ebibNumber = json_decode($response);
-
-    // print_r($ebibNumber->message);
-    echo $ebibNumber->message;
-    }
-
-
-
-    $user = wp_get_current_user();
-    if(!is_user_logged_in()) {
-        wp_redirect(site_url('my-account'));
-    } 
     
     ?>
     <div class="container">
         <p><h2 class="display-4 ml-2">Hi <?php echo $user->display_name; ?></h2></p>         
     </div>
 
-    <?php //print_r(checkEbibPayment($user->ID)); ?>
-      <?php 
-
+    <?php 
       $race = get_user_meta($user->ID, 'acmt_tx');
       $race = $race[0]['race'];
 
@@ -126,16 +122,9 @@ function acmt_profile_shortcode()
                 
             </ul>  
             <p>&nbsp;</p>          
-            <p id="resend" class="well" onload="singleEbib()">
-
-              <?php
-              // print_r($user->user_email);
-              getEbibNumber($user->user_email);
-              ?>
-            </p>   
-            <?php
-            // echo getRegisteredUsers('single'/$user_email);
-            ?>         
+            <div id="resend" class="well">
+              <h1>EBIB NUMBER: <?php echo getEbibNumber($user->user_email); ?> </h1>
+            </div>         
         </div>
    </div>
 <p>&nbsp;</p>
