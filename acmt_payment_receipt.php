@@ -15,7 +15,7 @@ function payment_callback()
         CURLOPT_HTTPHEADER => [
             "accept: application/json",
             // Lagos Marathon Paystack Secret Key
-            'Authorization: Bearer sk_live_7307585f097207f1f89c67b979bfb337c6ca6073',
+            'Authorization: Bearer '.PAYSTACK_SK,
             "cache-control: no-cache"
         ],
     ));

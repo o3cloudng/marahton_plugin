@@ -150,7 +150,7 @@ var reference = "<?php echo $reference; ?>";
     const amount_value = document.getElementById('amount_value');
 
     var handler = PaystackPop.setup({
-      key: 'pk_live_5a6d45e58e9531219c878f98b0253c9230f569c6',
+      key: "<?php echo PAYSTACK_PK ?>",
       email: email,
       amount: amount,
       currency: currency,
