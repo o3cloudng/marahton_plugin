@@ -72,9 +72,7 @@ function acmt_transaction()
 
         $headers = [
             // Lagos Marathon Paystack Secret Key
-            'Authorization: Bearer sk_test_7777f796b88afe0a3909ba2d8c4774b8bb98bc1a',
-            // o3cloudng Paystack secret key
-            // 'Authorization: Bearer sk_test_c69238befe042959328e0c5dc7030eb843d2824b',
+            'Authorization: ',
             'Content-Type: application/json',
 
         ];
