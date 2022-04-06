@@ -85,7 +85,7 @@ function acmt_family_register3()
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $headers = [
-            'Authorization: Bearer sk_test_7777f796b88afe0a3909ba2d8c4774b8bb98bc1a',
+            'Authorization: ',
             'Content-Type: application/json',
 
         ];
